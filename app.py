@@ -102,7 +102,7 @@ elif selected_page == "Churn Analysis":
     # Create a list of image filenames
     image_list = [
         "images/count-dependents.png",
-        "images/count-SeniorCitizen.png",
+        "images/count-seniorcitizen.png",
         "images/count-fiberoptic.png",
         "images/count-gender.png",
         "images/count-multiplelines.png",
@@ -134,6 +134,7 @@ elif selected_page == "Churn Analysis":
 
     # Display image
     image_path = figure_options[selected_figure]
-    st.image(image_path, caption=selected_figure, use_column_width=True)
+    st.image(image_path, caption=selected_figure, use_container_width=True)
+
 
 
