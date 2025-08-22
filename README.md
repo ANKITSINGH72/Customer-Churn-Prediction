@@ -1,4 +1,4 @@
-# 🔮 Customer Churn Prediction & Analysis Dashboard  
+# 🔮 [Customer Churn Prediction & Analysis Dashboard](https://customer-churn-predictiongit-97cqvdlvyfanfvmfpq4y7z.streamlit.app/)  
 
 ![Streamlit](https://img.shields.io/badge/Built%20with-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)  
 ![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white)  
