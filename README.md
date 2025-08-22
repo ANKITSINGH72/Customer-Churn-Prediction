@@ -80,7 +80,9 @@ The **churn analysis module** provides valuable insights into customer behavior.
 ## 📸 Screenshots  
 
 ### 🔮 Prediction Page  
-![Prediction Screenshot](images/prediction-page.png)  
+
+| ![](images/prediction-page1.png) | ![](images/prediction-page2.png) |
+| ![](images/prediction-page3.png) | ![](images/prediction-page4.png) |
 
 ### 📈 Example Graphs  
 | Dependents vs Churn | Senior Citizens vs Churn |  
