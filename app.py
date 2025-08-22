@@ -107,7 +107,7 @@ elif selected_page == "Churn Analysis":
         "images/count-gender.png",
         "images/count-multiplelines.png",
         "images/count-onlinesecurity.png",
-        "images/count-onlineservice.png",
+        "images/count-phoneservice.png",
         "images/count-partner.png",
         "images/count-techsupport.png",
        
@@ -135,6 +135,7 @@ elif selected_page == "Churn Analysis":
     # Display image
     image_path = figure_options[selected_figure]
     st.image(image_path, caption=selected_figure, use_container_width=True)
+
 
 
 
