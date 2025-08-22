@@ -10,8 +10,8 @@ from sklearn.tree import DecisionTreeClassifier
 from imblearn.combine import SMOTEENN
 
 # Load the trained model
-model = pickle.load(open("/content/drive/MyDrive/final_model.sav", "rb"))
-df=pd.read_csv('/content/drive/MyDrive/raw_data.csv')
+model = pickle.load(open("final_model.sav", "rb"))
+df=pd.read_csv('raw_data.csv')
 
 # Define feature categories
 categories = {
@@ -101,16 +101,16 @@ elif selected_page == "Churn Analysis":
 
     # Create a list of image filenames
     image_list = [
-        "/content/drive/MyDrive/images/count-dependents.png",
-        "/content/drive/MyDrive/images/count-deviceprotection.png",
-        "/content/drive/MyDrive/images/count-fiberoptic.png",
-        "/content/drive/MyDrive/images/count-gender.png",
-        "/content/drive/MyDrive/images/count-multiplelines.png",
-        "/content/drive/MyDrive/images/count-onlinesecurity.png",
-        "/content/drive/MyDrive/images/count-onlineservice.png",
-        "/content/drive/MyDrive/images/count-partner.png",
-        "/content/drive/MyDrive/images/count-techsupport.png",
-        "/content/drive/MyDrive/images/count-tenure_group.png"
+        "images/count-dependents.png",
+        "images/count-deviceprotection.png",
+        "images/count-fiberoptic.png",
+        "images/count-gender.png",
+        "images/count-multiplelines.png",
+        "images/count-onlinesecurity.png",
+        "images/count-onlineservice.png",
+        "images/count-partner.png",
+        "images/count-techsupport.png",
+        "images/count-tenure_group.png"
     ]
 
     # Create dropdown options matching the image list
@@ -135,3 +135,4 @@ elif selected_page == "Churn Analysis":
     # Display image
     image_path = figure_options[selected_figure]
     st.image(image_path, caption=selected_figure, use_column_width=True)
+
