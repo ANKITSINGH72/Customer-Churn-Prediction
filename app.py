@@ -1,13 +1,17 @@
-import streamlit as st 
+import streamlit as st
 import numpy as np
 import pickle
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 # Random Forest Classifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 from imblearn.combine import SMOTEENN
 
 # Load the trained model
-model = pickle.load(open("final_model.sav", "rb"))
+model = pickle.load(open("/content/drive/MyDrive/final_model.sav", "rb"))
+df=pd.read_csv('/content/drive/MyDrive/raw_data.csv')
 
 # Define feature categories
 categories = {
@@ -48,39 +52,86 @@ def predict_churn(feature_array):
     probability = model.predict_proba(feature_array)[:, 1][0]
     return prediction, probability
 
-# UI setup
-st.markdown("<h1 style='color: #FF5733; text-align: center;'>Customer Churn Prediction</h1>", unsafe_allow_html=True)
-st.markdown("<h3 style='color: #4682B4; text-align: center;'>Enter Customer Details Below:</h3>", unsafe_allow_html=True)
+# Sidebar for navigation
+st.sidebar.title("Navigation")
+selected_page = st.sidebar.selectbox("Go to:", ["Churn Prediction", "Churn Analysis"])
 
-feature_array = []
+# Churn Prediction Page
+if selected_page == "Churn Prediction":
+    st.markdown("<h1 style='color: #FF5733; text-align: center;'>Customer Churn Prediction</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #4682B4; text-align: center;'>Enter Customer Details Below:</h3>", unsafe_allow_html=True)
 
-# Numeric inputs
-st.markdown("<h3 style='color: #32CD32;'>📊 Numeric Features</h3>", unsafe_allow_html=True)
-numeric_values = {}
-for col in numerical_columns:
-    numeric_values[col] = st.number_input(f"{col}:", min_value=0.0)
-    feature_array.append(numeric_values[col])
+    feature_array = []
 
-# Categorical inputs
-st.markdown("<h3 style='color: #DAA520;'>📂 Categorical Features</h3>", unsafe_allow_html=True)
-user_selection = {}
-for category, options in categories.items():
-    st.markdown(f"<h4 style='color: #1E90FF;'>{category}</h4>", unsafe_allow_html=True)
-    selected_option = st.selectbox(f"{category}:", options)
-    user_selection[category] = selected_option
+    # Numeric inputs
+    st.markdown("<h3 style='color: #32CD32;'>📊 Numeric Features</h3>", unsafe_allow_html=True)
+    numeric_values = {}
+    for col in numerical_columns:
+        numeric_values[col] = st.number_input(f"{col}:", min_value=0.0)
+        feature_array.append(numeric_values[col])
 
-# Encode categorical features
-for category, options in categories.items():
-    selected = user_selection[category]
-    for option in options:
-        feature_array.append(1 if option == selected else 0)
+    # Categorical inputs
+    st.markdown("<h3 style='color: #DAA520;'>📂 Categorical Features</h3>", unsafe_allow_html=True)
+    user_selection = {}
+    for category, options in categories.items():
+        st.markdown(f"<h4 style='color: #1E90FF;'>{category}</h4>", unsafe_allow_html=True)
+        selected_option = st.selectbox(f"{category}:", options)
+        user_selection[category] = selected_option
 
-# Prediction button
-if st.button("🔮 Predict Churn"):
-    result, prob = predict_churn(feature_array)
-    
-    # Display result
-    if result == 1:
-        st.error(f"🚨 This customer is likely to churn! Confidence: {prob*100:.2f}%")
-    else:
-        st.success(f"✅ This customer is likely to continue! Confidence: {prob*100:.2f}%")
+    # Encode categorical features
+    for category, options in categories.items():
+        selected = user_selection[category]
+        for option in options:
+            feature_array.append(1 if option == selected else 0)
+
+    # Prediction button
+    if st.button("🔮 Predict Churn"):
+        result, prob = predict_churn(feature_array)
+
+        # Display result
+        if result == 1:
+            st.error(f"🚨 This customer is likely to churn! Confidence: {prob*100:.2f}%")
+        else:
+            st.success(f"✅ This customer is likely to continue! Confidence: {prob*100:.2f}%")
+
+# Churn Analysis Page
+elif selected_page == "Churn Analysis":
+    st.markdown("<h1 style='color: #FF4500; text-align: center;'>Churn Analysis Dashboard</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #4682B4; text-align: center;'>Select a Figure Below to View</h3>", unsafe_allow_html=True)
+
+    # Create a list of image filenames
+    image_list = [
+        "/content/drive/MyDrive/images/count-dependents.png",
+        "/content/drive/MyDrive/images/count-deviceprotection.png",
+        "/content/drive/MyDrive/images/count-fiberoptic.png",
+        "/content/drive/MyDrive/images/count-gender.png",
+        "/content/drive/MyDrive/images/count-multiplelines.png",
+        "/content/drive/MyDrive/images/count-onlinesecurity.png",
+        "/content/drive/MyDrive/images/count-onlineservice.png",
+        "/content/drive/MyDrive/images/count-partner.png",
+        "/content/drive/MyDrive/images/count-techsupport.png",
+        "/content/drive/MyDrive/images/count-tenure_group.png"
+    ]
+
+    # Create dropdown options matching the image list
+    figure_options = {
+        "count-dependents": image_list[0],
+        "count-deviceprotection": image_list[1],
+        "count-fiberoptic": image_list[2],
+        "count-gender": image_list[3],
+        "count-multiplelines": image_list[4],
+        "count-onlinesecurity": image_list[5],
+        "count-onlineservice": image_list[6],
+        "count-partner": image_list[7],
+        "count-techsupport": image_list[8],
+        "count-tenure_group": image_list[9]
+    }
+
+    # Center the dropdown
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        selected_figure = st.selectbox("Select a figure to display:", list(figure_options.keys()))
+
+    # Display image
+    image_path = figure_options[selected_figure]
+    st.image(image_path, caption=selected_figure, use_column_width=True)
