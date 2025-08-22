@@ -102,7 +102,7 @@ elif selected_page == "Churn Analysis":
     # Create a list of image filenames
     image_list = [
         "images/count-dependents.png",
-        "images/count-deviceprotection.png",
+        "images/count-SeniorCitizen.png",
         "images/count-fiberoptic.png",
         "images/count-gender.png",
         "images/count-multiplelines.png",
@@ -110,13 +110,13 @@ elif selected_page == "Churn Analysis":
         "images/count-onlineservice.png",
         "images/count-partner.png",
         "images/count-techsupport.png",
-        "images/count-tenure_group.png"
+       
     ]
 
     # Create dropdown options matching the image list
     figure_options = {
         "count-dependents": image_list[0],
-        "count-deviceprotection": image_list[1],
+        "count-SeniorCitizen": image_list[1],
         "count-fiberoptic": image_list[2],
         "count-gender": image_list[3],
         "count-multiplelines": image_list[4],
@@ -124,7 +124,7 @@ elif selected_page == "Churn Analysis":
         "count-onlineservice": image_list[6],
         "count-partner": image_list[7],
         "count-techsupport": image_list[8],
-        "count-tenure_group": image_list[9]
+        
     }
 
     # Center the dropdown
@@ -135,4 +135,5 @@ elif selected_page == "Churn Analysis":
     # Display image
     image_path = figure_options[selected_figure]
     st.image(image_path, caption=selected_figure, use_column_width=True)
+
 
